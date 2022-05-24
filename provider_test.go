@@ -11,6 +11,9 @@ import (
 	"testing"
 )
 
+// TODO: Add some tests to load migration files in order
+// TODO: validate migration file order based on source/dest version
+
 func setup() *hclwrite.File {
 	b, err := os.ReadFile("test.tf")
 	if err != nil {

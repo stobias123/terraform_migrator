@@ -14,7 +14,7 @@ module "k8s-api" {
 resource "datadog_monitor" {
   attribute {
     name = "type"
-    action = "replace"
+    action = "replace" // TODO: Replace should fail if not found.
     original_value = "events"
     value = "events-v2"
   }
