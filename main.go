@@ -66,18 +66,18 @@ func main() {
 				log.Println(fmt.Sprintf("[Info] trying to migrate %s", migConfig.MigrationName))
 				EditProviders(hclFile.Body(), *migConfig)
 			}
-			f, err := os.Create(file.Name())
+			f, err := os.Create(filePath)
 			if err != nil{
-				log.Fatalf("Problem writing file %s", file.Name())
+				log.Fatalf("Problem writing file %s", filePath)
 			}
 			_, err = f.Write(hclFile.Bytes())
 			//fmt.Printf("%s", hclFile.Bytes())
 			if err != nil {
-				log.Fatalf("Problem writing file %s", file.Name())
+				log.Fatalf("Problem writing file %s", filePath)
 			}
 			err = f.Close()
 			if err != nil {
-				log.Fatalf("Problem closing file %s", file.Name())
+				log.Fatalf("Problem closing file %s", filePath)
 			}
 		}
 	}
