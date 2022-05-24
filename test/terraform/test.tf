@@ -1,18 +1,17 @@
 
 resource "datadog_monitor" "replace" {
   message = "foo"
-  type = "events"
+  type    = "events"
 }
 
 resource "datadog_monitor" "dontreplace" {
   message = "foo"
-  type = "metric"
+  type    = "metric"
 }
 
 module "k8s-api" {
-  source = "./foo-bar"
+  source = "./PATH_TO_MODULE"
 }
 
 provider "vault" {
-  version = "= 100000"
 }

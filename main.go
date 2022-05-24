@@ -38,14 +38,13 @@ func main() {
 
 	for _, file := range migrationFiles {
 		filePath := fmt.Sprintf("%s/%s",*migrationDirectory, file.Name())
-		log.Println(fmt.Sprintf("[Info] trying to migrate file: %s", filePath))
+		log.Println(fmt.Sprintf("[Info] Loading to migrate file: %s", filePath))
 		if ! file.IsDir() {
 			config, err := util.LoadMigrationFile(filePath)
 			if err != nil {
 				log.Fatal(err)
 			}
 			migrationConfigs = append(migrationConfigs,config)
-			fmt.Println(file.Name(), file.IsDir())
 		}
 	}
 
@@ -63,7 +62,8 @@ func main() {
 				log.Fatal(err)
 			}
 			for _, migConfig := range migrationConfigs {
-				log.Println(fmt.Sprintf("[Info] trying to migrate %s", migConfig.MigrationName))
+				EditModules(hclFile.Body(), *migConfig)
+				EditResource(hclFile.Body(), *migConfig)
 				EditProviders(hclFile.Body(), *migConfig)
 			}
 			f, err := os.Create(filePath)

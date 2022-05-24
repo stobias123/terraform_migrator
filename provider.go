@@ -19,6 +19,26 @@ func EditProviders(body *hclwrite.Body, editConfig types.Migration) {
 	}
 }
 
+func EditModules(body *hclwrite.Body, editConfig types.Migration) {
+	for _, module := range editConfig.ModuleBlocks {
+		blocks := util.FindBlocks(body, "module" , []string{module.Name})
+		for _, block := range blocks {
+			editAttributes(block, module.Attributes)
+			//todo - edit sub blocks etc.
+		}
+	}
+}
+
+func EditResource(body *hclwrite.Body, editConfig types.Migration) {
+	for _, resource := range editConfig.ResourceBlocks {
+		blocks := util.FindBlocks(body, "resource" , []string{resource.Name})
+		for _, block := range blocks {
+			editAttributes(block, resource.Attributes)
+			//todo - edit sub blocks etc.
+		}
+	}
+}
+
 func editAttributes(block *hclwrite.Block, attributes []types.AttributeConfig) {
 	for _, attribute := range attributes {
 		switch {
@@ -37,7 +57,7 @@ func editAttributes(block *hclwrite.Block, attributes []types.AttributeConfig) {
 			value := attr.BuildTokens(nil)
 			log.Println(fmt.Sprintf("Found attr %s - value %v ", attr.BuildTokens(nil).Bytes(), value))
 		case attribute.Action == types.Add:
-			log.Fatal("Not implemented")
+			block.Body().SetAttributeValue(attribute.Name, cty.StringVal(*attribute.Value))
 		default:
 			log.Fatalf("Could not find action %s", attribute.Action)
 		}

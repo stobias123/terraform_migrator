@@ -10,15 +10,15 @@ module "k8s-api" {
 
   attribute {
     name = "source"
-    action  = "modify"
+    action  = "update"
     value = "./PATH_TO_MODULE"
   }
 
-  attribute {
-    name = "bar"
-    action  = "modify"
-    value = "10000"
-  }
+  //attribute {
+  //  name = "bar"
+  //  action  = "modify" TODO: Add a test to validate action (it already works)
+  //  value = "10000"
+  //}
 }
 
 ## this will replace the value events in with events-v2 in all datadog monitors.
