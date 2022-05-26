@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-func MigrateDirectory(terraformDirectory *string, migrationConfigs []*types.Migration)  {
+func MigrateDirectory(terraformDirectory *string, migrationConfigs []*types.Migration) error {
 	if terraformDirectory == nil {
 		log.Fatal("You must pass non nil terraformDirectory to this function")
 	}
@@ -25,7 +25,7 @@ func MigrateDirectory(terraformDirectory *string, migrationConfigs []*types.Migr
 		if ! file.IsDir() && strings.Contains(file.Name(), "tf") {
 			hclFile, err := LoadHCLFile(filePath)
 			if err != nil {
-				log.Fatal(err)
+				return err
 			}
 			for _, migConfig := range migrationConfigs {
 				EditModules(hclFile.Body(), *migConfig)
@@ -34,20 +34,23 @@ func MigrateDirectory(terraformDirectory *string, migrationConfigs []*types.Migr
 			}
 			f, err := os.Create(filePath)
 			if err != nil{
-				log.Fatalf("Problem writing file %s", filePath)
+				log.Printf("Problem writing file %s", filePath)
+				return err
 			}
 			_, err = f.Write(hclFile.Bytes())
 			//fmt.Printf("%s", hclFile.Bytes())
 			if err != nil {
-				log.Fatalf("Problem writing file %s", filePath)
+				log.Printf("Problem writing file %s", filePath)
+				return err
 			}
 			err = f.Close()
 			if err != nil {
-				log.Fatalf("Problem closing file %s", filePath)
+				log.Printf("Problem closing file %s", filePath)
+				return err
 			}
 		}
 	}
-
+	return nil
 }
 
 

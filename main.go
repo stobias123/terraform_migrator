@@ -48,5 +48,8 @@ func main() {
 		}
 	}
 
-	util.MigrateDirectory(terraformDirectory, migrationConfigs)
+	err = util.MigrateDirectory(terraformDirectory, migrationConfigs)
+	if err != nil {
+		os.Exit(1)
+	}
 }
