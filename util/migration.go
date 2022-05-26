@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 )
 
 func MigrateDirectory(terraformDirectory *string, migrationConfigs []*types.Migration)  {
@@ -21,7 +22,7 @@ func MigrateDirectory(terraformDirectory *string, migrationConfigs []*types.Migr
 	for _, file := range terraformFiles {
 		filePath := fmt.Sprintf("%s/%s",*terraformDirectory, file.Name())
 		log.Println(filePath)
-		if ! file.IsDir() {
+		if ! file.IsDir() && strings.Contains(file.Name(), "tf") {
 			hclFile, err := LoadHCLFile(filePath)
 			if err != nil {
 				log.Fatal(err)
