@@ -1,4 +1,4 @@
-package main
+package util
 
 import (
 	"fmt"
@@ -21,7 +21,7 @@ func MigrateDirectory(terraformDirectory *string, migrationConfigs []*types.Migr
 		filePath := fmt.Sprintf("%s/%s",*terraformDirectory, file.Name())
 		log.Println(filePath)
 		if ! file.IsDir() {
-			hclFile, err := util.LoadHCLFile(filePath)
+			hclFile, err := LoadHCLFile(filePath)
 			if err != nil {
 				log.Fatal(err)
 			}

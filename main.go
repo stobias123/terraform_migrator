@@ -48,5 +48,5 @@ func main() {
 		}
 	}
 
-	MigrateDirectory(terraformDirectory, migrationConfigs)
+	util.MigrateDirectory(terraformDirectory, migrationConfigs)
 }
