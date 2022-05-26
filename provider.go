@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/hashicorp/hcl/v2/hclwrite"
-	"github.com/stobias123/terraform_editor/types"
-	"github.com/stobias123/terraform_editor/util"
+	"github.com/stobias123/terraform_migrator/types"
+	"github.com/stobias123/terraform_migrator/util"
 	"github.com/zclconf/go-cty/cty"
 	"log"
 )

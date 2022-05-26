@@ -6,7 +6,7 @@ import (
 	"github.com/hashicorp/hcl/v2/gohcl"
 	"github.com/hashicorp/hcl/v2/hclparse"
 	"github.com/hashicorp/hcl/v2/hclwrite"
-	"github.com/stobias123/terraform_editor/types"
+	"github.com/stobias123/terraform_migrator/types"
 	"os"
 )
 

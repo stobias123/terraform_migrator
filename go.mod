@@ -1,6 +1,7 @@
-module github.com/stobias123/terraform_editor
+module github.com/stobias123/terraform_migrator
 
 go 1.18
+
 
 require (
 	github.com/hashicorp/hcl/v2 v2.12.0
